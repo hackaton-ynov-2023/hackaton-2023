@@ -1,0 +1,31 @@
+version: '3'
+services:
+  front:
+    platform: linux/arm64
+    build:
+      context: ./front
+    ports:
+      - "5173:8080"
+      # - "8080:8080"
+    depends_on:
+      - back
+  back:
+    platform: linux/arm64
+    build:
+      context: ./back
+    ports:
+      - "3000:3000"
+  db:
+    image: mysql:8  # Image MySQL compatible ARM64
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"  # Port MySQL
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin  # Utilisez l'image multi-architecture ARM64
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      UPLOAD_LIMIT: 70000000000
+    ports:
+      - "8081:80"  # Port PhpMyAdmin
