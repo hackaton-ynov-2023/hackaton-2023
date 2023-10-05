@@ -2,12 +2,11 @@
     <div>
       <h1>Liste des éléments</h1>
       <ul>
-        <li v-for="item in jsonData" :key="item.id">{{ item.name }}</li>
       </ul>
     </div>
   </template>
   
-  <script>
+<!--   <script>
   export default {
     data() {
       return {
@@ -26,10 +25,14 @@
         .then(data => {
           this.jsonData = data; // Stocker les données dans la variable
           console.log(this.jsonData[0])
+          this.jsonData.forEach(item =>{
+            console.log(item.geo_point_2d)
+          })
         })
         .catch(error => {
           console.error("Erreur lors du chargement des données JSON", error);
         });
     },
+
   };
-  </script>
+  </script> -->
