@@ -15,11 +15,11 @@ export default {
     };
   },
   mounted() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
+     navigator.geolocation.getCurrentPosition(
+       (position) => {
+         const { latitude, longitude } = position.coords;
         this.map = L.map("mapContainer").setView([latitude, longitude], 18);
-
+        this.map = L.map("mapContainer").setView([48.8566, 2.3522], 18);
         L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
           attribution:
             "&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors",
@@ -52,18 +52,39 @@ export default {
         .then((data) => {
           this.jsonData = data;
           this.addMarkers();
+          console.log(this.jsonData[0])
         })
         .catch((error) => {
           console.error("Erreur lors du chargement des données JSON", error);
         });
+    },
+    formatAddress(address) {
+      // Réorganise l'adresse au format "QUAI DE GESVRES"
+      const parts = address.split(" (");
+      if (parts.length > 1) {
+        return `${parts[1].replace(")", "")} ${parts[0]}`;
+      }
+      return address;
     },
     addMarkers() {
       const visibleBounds = this.map.getBounds();
 
       this.jsonData.forEach((item) => {
         if (visibleBounds.contains(L.latLng(item.geo_point_2d.lat, item.geo_point_2d.lon))) {
-          const marker = L.marker([item.geo_point_2d.lat, item.geo_point_2d.lon]);
-          marker.addTo(this.map);
+          const formattedAddress = this.formatAddress(item.lib_voie);
+          L.marker([item.geo_point_2d.lat, item.geo_point_2d.lon])
+            .addTo(this.map)
+            .bindPopup(`
+              <div>
+                <p>ID: ${item.cod_lampe}</p>
+                <p>Arrondissement: ${item.lib_region}</p>
+                <p>Adresse: ${formattedAddress}</p>
+                <a href ="/report/${item.cod_lampe}">
+                <button class="popup-button">Rediriger vers la page de signalement</button>
+              </a>
+                <button onclick="signaler()">Signaler</button>
+              </div>
+            `);
         }
       });
     },
