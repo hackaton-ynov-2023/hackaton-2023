@@ -17,7 +17,6 @@
   
       <!-- Contenu du menu -->
       <div class="menu-item">Mes signalements</div>
-      <div class="menu-item">Signaler</div>
       <img src="@/assets/profil.png" alt="Profile" class="profil-icon"/>
     </div>
   </template>
