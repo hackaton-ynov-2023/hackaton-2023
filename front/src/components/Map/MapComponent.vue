@@ -52,7 +52,6 @@ export default {
         .then((data) => {
           this.jsonData = data;
           this.addMarkers();
-          console.log(this.jsonData[0])
         })
         .catch((error) => {
           console.error("Erreur lors du chargement des données JSON", error);
@@ -82,7 +81,6 @@ export default {
                 <a href ="/report/${item.cod_lampe}">
                 <button class="popup-button">Rediriger vers la page de signalement</button>
               </a>
-                <button onclick="signaler()">Signaler</button>
               </div>
             `);
         }
