@@ -15,10 +15,10 @@ export default {
     };
   },
   mounted() {
-    // navigator.geolocation.getCurrentPosition(
-    //   (position) => {
-    //     const { latitude, longitude } = position.coords;
-        this.map = L.map("mapContainer").setView([48.8566, 2.3522], 18);
+     navigator.geolocation.getCurrentPosition(
+       (position) => {
+         const { latitude, longitude } = position.coords;
+        this.map = L.map("mapContainer").setView([latitude, longitude], 18);
 
         L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
           attribution:
@@ -26,7 +26,7 @@ export default {
         }).addTo(this.map);
 
         this.loadJsonData();
-      //},
+      },
       (error) => {
         console.error("Erreur lors de la géolocalisation : ", error);
         this.map = L.map("mapContainer").setView([48.8566, 2.3522], 18);
@@ -38,7 +38,7 @@ export default {
 
         this.loadJsonData();
       }
-    //);
+    );
   },
   methods: {
     loadJsonData() {
@@ -79,9 +79,9 @@ export default {
                 <p>ID: ${item.cod_lampe}</p>
                 <p>Arrondissement: ${item.lib_region}</p>
                 <p>Adresse: ${formattedAddress}</p>
-                <router-link :to="http://localhost:5173//report">
+                <a href ="/report">
                 <button class="popup-button">Rediriger vers la page de signalement</button>
-              </router-link>
+              </a>
               </div>
             `);
         }
