@@ -38,6 +38,26 @@ conn.connect((err) => {
     });
   });
 
+  // Route pour ajouter un report
+  app.post('/reports', (req, res) => {
+    // récupérer les données du formulaire ici depuis req.body
+    const { statut, description, date, idLamp, idUser } = req.body;
+
+    // Requête SQL pour insérer des données dans la table "report"
+    const query = `INSERT INTO report (statut, description, date, idLamp, idUser) VALUES (?, ?, ?, ?, ?)`;
+
+    conn.query(query, [statut, description, date, idLamp, idUser], (err, results) => {
+      if (err) {
+        console.error('Erreur lors de l\'insertion dans la table "report" :', err);
+        res.status(500).json({ error: 'Erreur serveur' });
+        return;
+      }
+      // Réponse JSON indiquant que l'insertion a réussi
+      res.json({ message: 'Données insérées avec succès dans la table "report"' });
+    });
+  });
+
+
   // Démarrage du serveur
   app.listen(3000, () => {
     console.log('Serveur démarré sur le port 3000');
