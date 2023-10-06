@@ -21,9 +21,6 @@ conn.connect((err) => {
     process.exit(1);
   }
 
-  // Importation de la fonction getLamps()
-  const { getLamps } = require('./routes/lamp');
-
   // Route pour récupérer les informations de la table "lamp"
   app.get('/lamps', (req, res) => {
     // Requête SQL pour récupérer les informations de la table "lampes"
