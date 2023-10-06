@@ -79,7 +79,7 @@ export default {
                 <p>ID: ${item.cod_lampe}</p>
                 <p>Arrondissement: ${item.lib_region}</p>
                 <p>Adresse: ${formattedAddress}</p>
-                <a href ="/report">
+                <a href ="/report/${item.cod_lampe}">
                 <button class="popup-button">Rediriger vers la page de signalement</button>
               </a>
               </div>
