@@ -15,11 +15,14 @@ export default {
     };
   },
   mounted() {
+     navigator.geolocation.getCurrentPosition(
+       (position) => {
+         const { latitude, longitude } = position.coords;
+        this.map = L.map("mapContainer").setView([latitude, longitude], 18);
     // navigator.geolocation.getCurrentPosition(
     //   (position) => {
     //     const { latitude, longitude } = position.coords;
         this.map = L.map("mapContainer").setView([48.8566, 2.3522], 18);
-
         L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
           attribution:
             "&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors",
@@ -79,6 +82,9 @@ export default {
                 <p>ID: ${item.cod_lampe}</p>
                 <p>Arrondissement: ${item.lib_region}</p>
                 <p>Adresse: ${formattedAddress}</p>
+                <a href ="/report">
+                <button class="popup-button">Rediriger vers la page de signalement</button>
+              </a>
                 <button onclick="signaler()">Signaler</button>
               </div>
             `);
