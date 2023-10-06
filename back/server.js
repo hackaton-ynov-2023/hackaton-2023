@@ -1,7 +1,7 @@
 // Importation des modules nécessaires
 const express = require('express');
 const mysql = require('mysql2');
-
+const cors = require('cors');
 // Création du serveur Express
 const app = express();
 
