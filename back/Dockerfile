@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 3000
 
 # Commande pour démarrer le serveur Node.js
-CMD ["nodemon", "server.js"]
+CMD ["npm", "start"]
