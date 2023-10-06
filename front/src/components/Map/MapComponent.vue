@@ -19,14 +19,17 @@ export default {
        (position) => {
          const { latitude, longitude } = position.coords;
         this.map = L.map("mapContainer").setView([latitude, longitude], 18);
-
+    // navigator.geolocation.getCurrentPosition(
+    //   (position) => {
+    //     const { latitude, longitude } = position.coords;
+        this.map = L.map("mapContainer").setView([48.8566, 2.3522], 18);
         L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
           attribution:
             "&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors",
         }).addTo(this.map);
 
         this.loadJsonData();
-      },
+      //},
       (error) => {
         console.error("Erreur lors de la géolocalisation : ", error);
         this.map = L.map("mapContainer").setView([48.8566, 2.3522], 18);
@@ -38,7 +41,7 @@ export default {
 
         this.loadJsonData();
       }
-    );
+    //);
   },
   methods: {
     loadJsonData() {
@@ -82,6 +85,7 @@ export default {
                 <a href ="/report">
                 <button class="popup-button">Rediriger vers la page de signalement</button>
               </a>
+                <button onclick="signaler()">Signaler</button>
               </div>
             `);
         }
