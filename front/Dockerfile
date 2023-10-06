@@ -11,7 +11,7 @@ COPY package*.json ./
 RUN npm install
 
 # Copiez tout le reste du code source
-COPY front/ ./ 
+COPY . .
 
 # Exposez le port sur lequel le serveur Vue.js s'exécute 
 EXPOSE 5173
